@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+ .inputField-one {
+    /* display: flex;
+    
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-content: space-evenly;  */
+    width: 90%;
+
+} 
+
+.text-login {
+    text-align: center;
+}
+
+.text-login h2,
+h1,
+h3 {
+    margin-top: 10px;
+}
+
+.paperDiv-one {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+
+    
+}
+
+.inputP {
+    color: blue;
+    font-weight: "bolder";
+    font-size: "15px";
+    margin-top: 10px;
+}

@@ -1,0 +1,13 @@
+.MuiDrawer-paper{
+    margin-top: 70px !important;
+    border-right: none !important;
+}
+
+*{
+    text-decoration: none !important;
+   
+}
+
+.activeStyle{
+    background-color: lightyellow !important;
+}

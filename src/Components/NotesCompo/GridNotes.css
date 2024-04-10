@@ -1,0 +1,41 @@
+.mainSectionGrid {
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+
+.gridItemMain {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: flex-start;
+}
+
+.gridItem {
+    padding: 20px;
+   
+    height: fit-content;
+    text-align: left;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+}
+.gridItemMain:hover .noteBoxIcon{
+    visibility: visible;
+    cursor: pointer;
+}
+
+.noteBoxIcon{
+    position: relative;
+    bottom: 10px;
+    display: flex;
+    visibility: hidden;
+}
