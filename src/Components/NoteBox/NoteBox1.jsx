@@ -96,8 +96,8 @@ export const NoteBoxOne = () => {
             {changeInput ?
                 <Grid sx={12} lg={8} xl={10} display={'grid'} justifyContent={'center'} alignContent={'center'} height={'100px'} width={'100%'}>
                     <Box>
-                        <Search style={{
-                            boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px ', color: 'black', width: "600px", height: '50px', borderRadius: "10px", display: "flex",
+                        <Search className='seracheInput_first' style={{
+                            boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px ', color: 'black', width: "600px", height: '50px', borderRadius: "10px", display: "flex", marginLeft:'85px',
                             justifyContent: 'space-between', textAlign: "center"
                         }}  >
 

@@ -21,6 +21,7 @@ import BrushOutlinedIcon from '@mui/icons-material/BrushOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import './NoteBox.css';
 import { useRef } from 'react';
+import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
@@ -159,9 +160,10 @@ export const SearchInput2 = ({ handleInputClose }) => {
                     style={{
                         boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px ',
                         color: 'black',
-                        width: '700px',
+                        width: '600px',
                         height: "auto",
                         borderRadius: '10px',
+                        marginLeft:'85px',
                         display: 'flex',
                         justifyContent: 'space-between',
                         flexDirection: 'column',
@@ -209,7 +211,7 @@ export const SearchInput2 = ({ handleInputClose }) => {
                                 <ImageOutlinedIcon />
                             </div>
                             <div className="srarchInput-icon">
-                                <ArchiveOutlinedIcon onClick={handleArchive} />
+                                 {  notesData.isArchived ? <UnarchiveOutlinedIcon onClick={handleArchive}/>:<ArchiveOutlinedIcon onClick={handleArchive}/> } 
                             </div>
                             <div className="srarchInput-icon" onClick={handleClick}>
                                 <MoreVertOutlinedIcon />

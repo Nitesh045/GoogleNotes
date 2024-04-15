@@ -24,6 +24,15 @@ import { Grid } from '@mui/material';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import ViewAgendaOutlinedIcon from '@mui/icons-material/ViewAgendaOutlined';
+import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { SPINNER_LOADING, setFalse, setInputData, setTrue } from '../../Redux/Action';
+import { Spinner } from '../NotesCompo/Spinner';
+import '../NoteBox/NoteBox.css'
+
+
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'absolute',
@@ -55,7 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function CustomAppBar({handleDrawerOpen}) {
+export default function CustomAppBar({ handleDrawerOpen }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -79,6 +88,11 @@ export default function CustomAppBar({handleDrawerOpen}) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+
+
+  const logOut = () => {
+    localStorage.clear()
+  }
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -98,6 +112,7 @@ export default function CustomAppBar({handleDrawerOpen}) {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={logOut}>Logout</MenuItem>
     </Menu>
   );
 
@@ -118,12 +133,12 @@ export default function CustomAppBar({handleDrawerOpen}) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      
+
       <MenuItem>
         <IconButton>
-          
-            <AccountCircle/>
-          
+
+          <AccountCircle />
+
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -135,21 +150,53 @@ export default function CustomAppBar({handleDrawerOpen}) {
           aria-haspopup="true"
 
         >
-         
+
         </IconButton>
         <p>Logout</p>
       </MenuItem>
     </Menu>
   );
 
- 
-
- 
 
 
+  const refrecePage = () => {
+    window.location.reload();
+  }
+
+  const dispatch = useDispatch();
+
+  
+
+  const isTrue = useSelector(state => state.isTrue);
+  const initialSearchValue= useSelector(state=>state.inputData)
+  const loadiang= useSelector(state=>state.isLoaging)
+  // console.log(loadiang);
+  
+
+  const changeView = () => {
+   
+      // Dispatch the appropriate action based on the current state
+      if (isTrue) {
+        dispatch(setFalse());
+      } else {
+        dispatch(setTrue());
+      }
+      // Store the initial state before the action is dispatched
+      
+    
+
+  }
+
+  const[inputSearch,setInputSearch]=useState(initialSearchValue)
+  const hangleSearch=(e)=>{
+    setInputSearch(e.target.value)
+    dispatch(setInputData(inputSearch));
+   
+  }
+  
   return (
-    <Box sx={{ flexGrow: 1,  width:"100%",position:"fixed"}} >
-      <AppBarMui position="static" sx={{ backgroundColor: 'white' ,border:'1px solid grey',boxShadow:"none",height:"70px"}}>
+    <Box sx={{ flexGrow: 1, width: "100%", position: "fixed" }} >
+      <AppBarMui position="static" sx={{ backgroundColor: 'white', border: '1px solid grey', boxShadow: "none", height: "70px" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -172,45 +219,48 @@ export default function CustomAppBar({handleDrawerOpen}) {
             Keep
           </Typography>
 
-          <Search style={{  color: 'black', width: "50%", height: '50px', borderRadius: "10px",backgroundColor:"#ecf0f2" }}>
+          <Search className='navSerach_bar' style={{ color: 'black', width: "50%", height: '50px', borderRadius: "10px", backgroundColor: "#ecf0f2" }}>
             <SearchIconWrapper>
-              <SearchIcon />
+              <SearchIcon  />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
               color='black'
+              onChange={hangleSearch}
+              name='searchValue'
+              value={inputSearch}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex',marginRight:"10px" } }}>
-          <IconButton
-              size="large"
-              style={{marginRight:"10px"}}
-            >
-              <Badge>
-                <RefreshOutlinedIcon style={{ fontSize: "30px",   }}/>
-              </Badge>
-            </IconButton>
-
-          <IconButton size="large">
-              <Badge  >
-                <ViewAgendaOutlinedIcon style={{ fontSize: "30px",  }} />
-              </Badge>
-            </IconButton>
-           
+          <Box sx={{ display: { xs: 'none', md: 'flex', marginRight: "10px" } }}>
             <IconButton
               size="large"
-              style={{marginRight:"30px"}}
+              style={{ marginRight: "10px" }}
             >
               <Badge>
-                <SettingsOutlinedIcon style={{ fontSize: "30px",   }}/>
+                {loadiang ? <RefreshOutlinedIcon style={{ fontSize: "25px", }} onClick={refrecePage} /> :<Spinner/>}
               </Badge>
             </IconButton>
 
             <IconButton size="large">
               <Badge  >
-                <AppsSharpIcon style={{ fontSize: "30px", }} />
+                {isTrue ? <GridViewOutlinedIcon style={{ fontSize: "25px", }} onClick={changeView} /> : <ViewAgendaOutlinedIcon style={{ fontSize: "25px", }} onClick={changeView} />}
+              </Badge>
+            </IconButton>
+
+            <IconButton
+              size="large"
+              style={{ marginRight: "25px" }}
+            >
+              <Badge>
+                <SettingsOutlinedIcon style={{ fontSize: "25px", }} />
+              </Badge>
+            </IconButton>
+
+            <IconButton size="large">
+              <Badge  >
+                <AppsSharpIcon style={{ fontSize: "25px", }} />
               </Badge>
             </IconButton>
 
@@ -224,7 +274,7 @@ export default function CustomAppBar({handleDrawerOpen}) {
               onClick={handleProfileMenuOpen}
 
             >
-              <AccountCircle style={{fontSize:"30px",}} />
+              <AccountCircle style={{ fontSize: "25px", }} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -236,7 +286,7 @@ export default function CustomAppBar({handleDrawerOpen}) {
               onClick={handleMobileMenuOpen}
 
             >
-              <MoreIcon  />
+              <MoreIcon />
             </IconButton>
           </Box>
         </Toolbar>
@@ -245,7 +295,7 @@ export default function CustomAppBar({handleDrawerOpen}) {
       {renderMenu}
 
 
-      
+
 
       <Grid >
         {/* <DrawerBar openModal={open} handleDrawerOpen={handleDrawerHoverOpne} handleModalHoverClose={handleModalHoverClose}/> */}

@@ -4,7 +4,7 @@ import { NotesGrid } from '../NotesCompo/NotesGrid'
 
 export const NoteInput = () => {
   return (
-    <div>
+    <div >
         <NoteBoxOne/>
         <NotesGrid/>
     </div>

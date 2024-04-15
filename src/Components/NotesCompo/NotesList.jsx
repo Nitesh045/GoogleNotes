@@ -57,7 +57,7 @@ Fade.propTypes = {
 export const NotesList = ({ noteObj, key }) => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [notesColor,setNotesColor]= useState(null);
+  const [notesColor, setNotesColor] = useState(null);
 
 
   const handleClick = (event) => {
@@ -67,17 +67,17 @@ export const NotesList = ({ noteObj, key }) => {
 
 
   const handleTrash = async () => {
-   
+
     let deletenote = { noteIdList: [noteObj.id], isDeleted: true }
 
     let dataId = await Deleting(deletenote)
       .then((d) => {
-        
+
         window.location.reload();
       }).catch((e) => {
         console.log(e)
       })
-    
+
   }
 
   const updateArchive1 = async () => {
@@ -87,13 +87,9 @@ export const NotesList = ({ noteObj, key }) => {
     window.location.reload();
   }
 
-  if(notesColor !==null){
-
-  }
+  
   return (
-    <div className='mainSectionGrid'>
-
-
+    
       <div key={key} className='gridItemMain' style={{ backgroundColor: noteObj.color }}>
         <div className='gridItem'>
           <div >
@@ -106,7 +102,7 @@ export const NotesList = ({ noteObj, key }) => {
         </div>
         <div className='noteBoxIcon'>
           <div className="srarchInput-icon" >
-            <AddAlertOutlinedIcon />
+            <AddAlertOutlinedIcon  />
           </div>
           <div className="srarchInput-icon">
             <PersonAddOutlinedIcon />
@@ -126,7 +122,7 @@ export const NotesList = ({ noteObj, key }) => {
               {({ TransitionProps }) => (
                 <Fade {...TransitionProps}>
                   <Box sx={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px', p: 1, bgcolor: 'background.paper' }}>
-                    <p><Button onClick={ handleTrash} fullWidth>Delete</Button></p>
+                    <p style={{textAlign:'left'}}><Button onClick={handleTrash} fullWidth>Delete</Button></p>
                     <p><Button fullWidth>Add label</Button></p>
                     <p><Button fullWidth>Add Drawing</Button></p>
                     <p><Button fullWidth>Show tick boxes</Button></p>
@@ -140,6 +136,6 @@ export const NotesList = ({ noteObj, key }) => {
       </div>
 
 
-    </div>
+    
   )
 }

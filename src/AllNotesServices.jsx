@@ -34,3 +34,8 @@ export const UpdateColor= async(obj)=>{
     let response = await axios.post("https://fundoonotes.incubation.bridgelabz.com/api/notes/changesColorNotes",obj,headerConfig)
     return response
 }
+
+export const DeleteForever = async(obj)=>{
+    let res= await axios.post('https://fundoonotes.incubation.bridgelabz.com/api/notes/deleteForeverNotes',obj,headerConfig)
+    return res
+}

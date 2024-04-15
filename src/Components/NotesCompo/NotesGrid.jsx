@@ -23,6 +23,10 @@ import { useSpring, animated } from '@react-spring/web';
 import { forwardRef } from 'react';
 import { NotesList } from './NotesList';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { ListView } from './ListView';
+import { setIsLoaging } from '../../Redux/Action';
+import './ListView.css';
 
 const Fade = forwardRef(function Fade(props, ref) {
   const { in: open, children, onEnter, onExited, ...other } = props;
@@ -58,8 +62,7 @@ export const NotesGrid = () => {
   const [fetchData, setFetchData] = useState([])
   const [resColor,setResColor]=useState()
   
- 
-  
+ const dispatch= useDispatch();  
 
   
   
@@ -69,11 +72,9 @@ export const NotesGrid = () => {
       .then((data) => {
         let result = data.data.data.data;
         let newNotes = result.filter((notes) => notes.isArchived ===  notes.isDeleted )
-
-
         setFetchData(newNotes)
-
-        // console.log(data)
+        dispatch(setIsLoaging(false))
+        
       }).catch((e) => {
         console.log(e)
       })
@@ -85,13 +86,26 @@ export const NotesGrid = () => {
 
 
   console.log(fetchData);
-  return (
 
-   
-    <div style={{display:'flex',flexWrap:'wrap',justifyContent:'center',gap:'20px',flexDirection:'row'}}>
-    {fetchData.map((d,i)=>{
+const [valueforSerach,setValueSearch]=useState('')
+  const isTrue = useSelector(state => state.isTrue);
+  
+  const initialSearchValue= useSelector(state=>state.inputData)
+  useEffect(() => {
+    setValueSearch(initialSearchValue);
+  }, [initialSearchValue]);
+
+  const filteredNotes = fetchData.filter(note => {
+    // Perform case-insensitive search on note content
+    return note.description.toLowerCase().includes(valueforSerach.toLowerCase());
+  });
+
+  return (
+    <div className={isTrue ? 'listViewCompo':'gridViewCompo'} >
+    {filteredNotes.map((d,i)=>{
       return(
-        <NotesList noteObj={d} key={i} />
+        isTrue ?  <ListView key={i}  noteObj={d}/> : <NotesList key={i}  noteObj={d}/>
+       
       )
     })}
     </div>

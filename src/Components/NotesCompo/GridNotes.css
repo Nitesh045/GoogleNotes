@@ -1,25 +1,21 @@
-.mainSectionGrid {
-    
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-}
+
 
 
 
 .gridItemMain {
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    width: 300px;
+    width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-content: flex-start;
+    height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 20px 10px 5px 10px;
+    border-radius: 10px;
 }
 
 .gridItem {
-    padding: 20px;
-   
+    
     height: fit-content;
     text-align: left;
 
@@ -28,14 +24,34 @@
     flex-direction: row;
 
 }
+.gridItemMain:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
 .gridItemMain:hover .noteBoxIcon{
     visibility: visible;
     cursor: pointer;
+    
 }
 
 .noteBoxIcon{
     position: relative;
-    bottom: 10px;
+    bottom: 0px;
     display: flex;
     visibility: hidden;
 }
+@media(max-width:598px) {
+    .gridViewCompo{
+      width: 100% !important;
+      display: flex;
+      flex-direction: column;
+      
+      height: fit-content;
+      align-items: center;
+      gap: 20px;
+      margin-left: 40px;
+    } 
+    .gridItemMain{
+        width: 90%;
+        
+    } 
+  }

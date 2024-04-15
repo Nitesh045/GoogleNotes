@@ -1,12 +1,12 @@
 import React from 'react'
-import { getNotes } from '../../AllNotesServices';
+import { getNotes, updateArchive } from '../../AllNotesServices';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
+import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
@@ -83,10 +83,18 @@ export const Archive = () => {
         console.log(e)
       })
 
+      
+
 
   }, []);
 
-
+  const unArchive = async (id) => {
+    console.log(id)
+    let archive = { noteIdList: [id], isArchived: false }
+    let response = await updateArchive(archive);
+    console.log(response)
+    window.location.reload();
+  }
   
   return (
     <div className='mainSectionGrid'>
@@ -116,7 +124,7 @@ export const Archive = () => {
                 <ImageOutlinedIcon />
               </div>
               <div className="srarchInput-icon">
-                <ArchiveOutlinedIcon  />
+              {  res.isArchived ? <UnarchiveOutlinedIcon onClick={()=>unArchive(res.id)} />:<ArchiveOutlinedIcon /> } 
               </div>
               <div className="srarchInput-icon" onClick={handleClick}>
                 <MoreVertOutlinedIcon />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { getNotes } from '../../AllNotesServices';
+import { DeleteForever, Deleting, getNotes, updateArchive } from '../../AllNotesServices';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
@@ -17,6 +17,8 @@ import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import PropTypes from 'prop-types';
 import { PopperColor } from '../Popper/PopperColor';
 import Typography from '@mui/material/Typography';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOutlined';
 
 
 import { useSpring, animated } from '@react-spring/web';
@@ -85,7 +87,28 @@ export const TrashNotes = () => {
 
   }, []);
 
+const deleteForever=(id)=>{
+  console.log(id)
+  let deleteItem = { noteIdList: [id] }
+  console.log(deleteItem)
+  let del= DeleteForever(deleteItem)
+  .then((d)=>{
+    console.log(d)
+    
+  }).catch((e)=>{
+    console.log(e)
+  })
 
+  
+    
+}
+const restoreDelete = async (id) => {
+  console.log(id)
+  let restore = { noteIdList: [id], isDeleted: false }
+  let response = await Deleting(restore);
+  console.log(response)
+  window.location.reload();
+}
   console.log(fetchData);
   return (
     <div className='mainSectionGrid'>
@@ -97,27 +120,17 @@ export const TrashNotes = () => {
                 <h3>{res.title}</h3>
                 <p>{res.description}</p>
               </div>
-              <div className='noteBoxIcon'>
-                <PushPinOutlinedIcon style={{ fontSize: "30px" }} />
-              </div>
+              
             </div>
             <div className='noteBoxIcon'>
               <div className="srarchInput-icon" >
-                <AddAlertOutlinedIcon />
+                <DeleteForeverOutlinedIcon onClick={()=>deleteForever(res.id)} />
               </div>
               <div className="srarchInput-icon">
-                <PersonAddOutlinedIcon />
+                <RestoreFromTrashOutlinedIcon onClick={()=>restoreDelete(res.id)} />
               </div>
-              <div className="srarchInput-icon">
-                <PopperColor />
-              </div>
-              <div className="srarchInput-icon">
-                <ImageOutlinedIcon />
-              </div>
-              <div className="srarchInput-icon">
-                <ArchiveOutlinedIcon  />
-              </div>
-              <div className="srarchInput-icon" onClick={handleClick}>
+
+              {/* <div className="srarchInput-icon" onClick={handleClick}>
                 <MoreVertOutlinedIcon />
                 <Popper open={open} anchorEl={anchorEl} transition>
                   {({ TransitionProps }) => (
@@ -132,7 +145,7 @@ export const TrashNotes = () => {
                     </Fade>
                   )}
                 </Popper>
-              </div>
+              </div> */}
             </div>
           </div>
 
