@@ -1,0 +1,11 @@
+
+.ReactModal__Content{
+    border: none !important;
+    padding: 0px !important;
+    background-color: none !important;
+   
+}
+.ReactModal__Content--after-open{
+    padding: 40px !important;
+    background-color: rgb(40, 40, 40) !important;
+}

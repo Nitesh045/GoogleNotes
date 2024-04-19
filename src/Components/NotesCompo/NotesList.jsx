@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import { PopperColor } from '../Popper/PopperColor';
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 
 import { useSpring, animated } from '@react-spring/web';
 import './GridNotes.css'
@@ -23,6 +24,7 @@ import { forwardRef } from 'react';
 
 import { useState } from 'react';
 import { Deleting, updateArchive } from '../../AllNotesServices';
+import { EditModal } from '../../Modal/EditModal';
 
 
 const Fade = forwardRef(function Fade(props, ref) {
@@ -54,7 +56,9 @@ Fade.propTypes = {
   onEnter: PropTypes.func,
   onExited: PropTypes.func,
 };
-export const NotesList = ({ noteObj, key }) => {
+export const NotesList = ({ noteObj, key,setIsComponentRender }) => {
+
+
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [notesColor, setNotesColor] = useState(null);
@@ -73,42 +77,57 @@ export const NotesList = ({ noteObj, key }) => {
     let dataId = await Deleting(deletenote)
       .then((d) => {
 
-        window.location.reload();
+        setIsComponentRender(prev=>!prev)
       }).catch((e) => {
         console.log(e)
       })
 
   }
 
-  const updateArchive1 = async () => {
-    let archive = { noteIdList: [noteObj.id], isArchived: true }
-    let response = await updateArchive(archive);
-    console.log(response)
-    window.location.reload();
-  }
 
   
-  return (
+    const updateArchive1 = async () => {
+      let archive = { noteIdList: [noteObj.id], isArchived: true };
+      let response = await updateArchive(archive);
+      console.log(response);
+      setIsComponentRender(prev=>!prev)
+    };
+
     
-      <div key={key} className='gridItemMain' style={{ backgroundColor: noteObj.color }}>
+  
+
+  const [modalIsOpen, setIsOpenModal] = React.useState(false);
+
+  
+const [editData,setEditData]=useState({})
+
+const editModal=(data)=>{
+  //console.log(data)
+  setEditData(data);
+  setIsOpenModal(prev=>!prev)
+}
+console.log(editData)
+  return (
+    <>
+      <div key={key} className='gridItemMain' style={{ backgroundColor: noteObj.color }} >
         <div className='gridItem'>
-          <div >
+          <div onClick={()=>editModal(noteObj,key)} >
             <h3>{noteObj.title}</h3>
             <p>{noteObj.description}</p>
           </div>
           <div className='noteBoxIcon'>
-            <PushPinOutlinedIcon style={{ fontSize: "30px" }} />
+            <PushPinOutlinedIcon style={{ fontSize: "25px" }} />
           </div>
         </div>
         <div className='noteBoxIcon'>
           <div className="srarchInput-icon" >
-            <AddAlertOutlinedIcon  />
+            <AddAlertOutlinedIcon />
           </div>
           <div className="srarchInput-icon">
             <PersonAddOutlinedIcon />
           </div>
           <div className="srarchInput-icon">
-            <PopperColor action='update' setNotesColor={setNotesColor} noteId={noteObj.id} />
+            <PopperColor action='update' setNotesColor={setNotesColor} noteId={noteObj.id} setIsComponentRender={setIsComponentRender} />
           </div>
           <div className="srarchInput-icon">
             <ImageOutlinedIcon />
@@ -122,11 +141,11 @@ export const NotesList = ({ noteObj, key }) => {
               {({ TransitionProps }) => (
                 <Fade {...TransitionProps}>
                   <Box sx={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px', p: 1, bgcolor: 'background.paper' }}>
-                    <p style={{textAlign:'left'}}><Button onClick={handleTrash} fullWidth>Delete</Button></p>
-                    <p><Button fullWidth>Add label</Button></p>
-                    <p><Button fullWidth>Add Drawing</Button></p>
-                    <p><Button fullWidth>Show tick boxes</Button></p>
-                    <p> <Button fullWidth>Version history</Button></p>
+                    <p style={{ textAlign: 'left' }}><Button onClick={handleTrash} fullWidth className='btn_p_Popper'>Delete</Button></p>
+                    <p><Button fullWidth className='btn_p_Popper'>Add label</Button></p>
+                    <p><Button fullWidth className='btn_p_Popper'>Add Drawing</Button></p>
+                    <p><Button fullWidth className='btn_p_Popper'>Show tick boxes</Button></p>
+                    <p><Button fullWidth className='btn_p_Popper'>Version history</Button></p>
                   </Box>
                 </Fade>
               )}
@@ -134,8 +153,9 @@ export const NotesList = ({ noteObj, key }) => {
           </div>
         </div>
       </div>
+   
+        <EditModal  modalIsOpen={modalIsOpen} setIsOpenModal={setIsOpenModal} notdataedit={editData} setIsComponentRender={setIsComponentRender}/>
+      </>
 
-
-    
   )
 }

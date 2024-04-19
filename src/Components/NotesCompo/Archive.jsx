@@ -20,9 +20,11 @@ import Typography from '@mui/material/Typography';
 
 
 import { useSpring, animated } from '@react-spring/web';
-import './GridNotes.css'
+import './GridNotes.css';
+import './ListView.css'
 
 import { forwardRef } from 'react';
+import { useSelector } from 'react-redux';
 
 
 
@@ -58,6 +60,9 @@ Fade.propTypes = {
   onExited: PropTypes.func,
 };
 export const Archive = () => {
+
+
+  const [isComponentRender, setIsComponentRender] = useState(false);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -65,10 +70,11 @@ export const Archive = () => {
     setOpen((previousOpen) => !previousOpen);
   };
 
-
+  const isTrue = useSelector(state => state.isTrue);
 
   const [fetchData, setFetchData] = useState([])
   const [notes, setNotes] = useState(null)
+
   useEffect(() => {
     let res = getNotes()
       .then((data) => {
@@ -86,29 +92,27 @@ export const Archive = () => {
       
 
 
-  }, []);
+  }, [isComponentRender]);
 
   const unArchive = async (id) => {
     console.log(id)
     let archive = { noteIdList: [id], isArchived: false }
     let response = await updateArchive(archive);
     console.log(response)
-    window.location.reload();
+    setIsComponentRender(prev=>!prev)
   }
   
   return (
-    <div className='mainSectionGrid'>
+    <div className={isTrue ? 'listViewCompo':'mainSectionGrid'}>
       {fetchData.map((res, i) => {
         return (
-          <div key={i} className='gridItemMain' style={{ backgroundColor: res.color }}>
-            <div className='gridItem'>
+          <div key={i}  style={{ backgroundColor: res.color }} className='showIconClass'>
+            <div className={isTrue ?'IslistViewTrue':'gridItem'}>
               <div >
                 <h3>{res.title}</h3>
                 <p>{res.description}</p>
               </div>
-              <div className='noteBoxIcon'>
-                <PushPinOutlinedIcon style={{ fontSize: "30px" }} />
-              </div>
+              
             </div>
             <div className='noteBoxIcon'>
               <div className="srarchInput-icon" >

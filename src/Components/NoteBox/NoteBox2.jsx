@@ -173,7 +173,7 @@ export const SearchInput2 = ({ handleInputClose }) => {
                 >
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <StyledInputBase
-                            placeholder="heading"
+                            placeholder="Title"
                             inputProps={{ 'aria-label': 'search' }}
                             color=""
                             onChange={handleInputChange}
@@ -185,7 +185,7 @@ export const SearchInput2 = ({ handleInputClose }) => {
                     </div>
                     <div>
                         <TextareaAutosize
-                            placeholder="heading"
+                            placeholder="description"
                             inputProps={{ 'aria-label': 'search' }}
                             color=""
                             value={notesData.description}

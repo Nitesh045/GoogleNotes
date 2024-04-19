@@ -20,7 +20,7 @@ import AppsSharpIcon from '@mui/icons-material/AppsSharp';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import ViewStreamIcon from '@mui/icons-material/ViewStream';
 import DrawerBar from '../Drawer/DrawerBar';
-import { Grid } from '@mui/material';
+import { Avatar, Button, Grid } from '@mui/material';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import ViewAgendaOutlinedIcon from '@mui/icons-material/ViewAgendaOutlined';
@@ -30,8 +30,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { SPINNER_LOADING, setFalse, setInputData, setTrue } from '../../Redux/Action';
 import { Spinner } from '../NotesCompo/Spinner';
 import '../NoteBox/NoteBox.css'
-
-
+import './AppBar.css';
+import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -88,10 +90,18 @@ export default function CustomAppBar({ handleDrawerOpen }) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const storedJsonString = localStorage.getItem('userData');
+
+  // Parse the JSON string back into an object
+  const storedData = JSON.parse(storedJsonString);
+  let name = storedData.username;
+  const firstLetter = name ? name.charAt(0).toUpperCase() : '';
+  console.log(firstLetter)
 
 
   const logOut = () => {
     localStorage.clear()
+    window.location.reload()
   }
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -100,19 +110,53 @@ export default function CustomAppBar({ handleDrawerOpen }) {
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
+
       }}
+      style={{ marginTop: '50px' }}
+      className='profileModal'
       id={menuId}
       keepMounted
       transformOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
+      
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={logOut}>Logout</MenuItem>
+      <p className='modalClose' onClick={handleMenuClose}><CloseIcon/></p>
+      <div  className='userModal' >
+      
+        <div className='modal_item' >
+          {storedData.email}
+          
+        </div>
+
+        <div style={{display:'flex' ,flexDirection:'column',alignItems:'center'}}>
+          <Avatar style={{width:'70px', height:'70px',fontSize:'50px'}}>{firstLetter}</Avatar>
+         <h3> Hi,{storedData.username}!</h3>
+        </div>
+        <div className='acc_manage'>
+          <Button>Manage Your Google Account</Button>
+        </div>
+        <div className='modal_btn'>
+          <div className='modal_btn_1'>
+          <MenuItem onClick={logOut}> <AddIcon/>Add Account</MenuItem>
+          </div>
+          <div className='modal_btn_2'>
+            <MenuItem onClick={logOut}> <LogoutIcon/>Sign Out</MenuItem>
+          </div>
+          
+        </div>
+        <div>
+            <Button style={{color:'grey', fontSize:'10px'}}>Privacy Policy</Button> -<Button style={{color:'grey', fontSize:'10px'}}>Terms of service</Button>
+          </div>
+        {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
+
+
+      </div>
+
+
     </Menu>
   );
 
@@ -165,35 +209,36 @@ export default function CustomAppBar({ handleDrawerOpen }) {
 
   const dispatch = useDispatch();
 
-  
+
 
   const isTrue = useSelector(state => state.isTrue);
-  const initialSearchValue= useSelector(state=>state.inputData)
-  const loadiang= useSelector(state=>state.isLoaging)
+  const initialSearchValue = useSelector(state => state.inputData)
+  const loadiang = useSelector(state => state.isLoaging)
+  const titleNotes = useSelector(state => state.title)
   // console.log(loadiang);
-  
+
 
   const changeView = () => {
-   
-      // Dispatch the appropriate action based on the current state
-      if (isTrue) {
-        dispatch(setFalse());
-      } else {
-        dispatch(setTrue());
-      }
-      // Store the initial state before the action is dispatched
-      
-    
+
+    // Dispatch the appropriate action based on the current state
+    if (isTrue) {
+      dispatch(setFalse());
+    } else {
+      dispatch(setTrue());
+    }
+    // Store the initial state before the action is dispatched
+
+
 
   }
 
-  const[inputSearch,setInputSearch]=useState(initialSearchValue)
-  const hangleSearch=(e)=>{
+  const [inputSearch, setInputSearch] = useState(initialSearchValue)
+  const hangleSearch = (e) => {
     setInputSearch(e.target.value)
     dispatch(setInputData(inputSearch));
-   
+
   }
-  
+
   return (
     <Box sx={{ flexGrow: 1, width: "100%", position: "fixed" }} >
       <AppBarMui position="static" sx={{ backgroundColor: 'white', border: '1px solid grey', boxShadow: "none", height: "70px" }}>
@@ -216,12 +261,12 @@ export default function CustomAppBar({ handleDrawerOpen }) {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' }, color: 'black', marginLeft: '20px' }}
           >
-            Keep
+            {titleNotes}
           </Typography>
 
           <Search className='navSerach_bar' style={{ color: 'black', width: "50%", height: '50px', borderRadius: "10px", backgroundColor: "#ecf0f2" }}>
             <SearchIconWrapper>
-              <SearchIcon  />
+              <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
@@ -239,7 +284,7 @@ export default function CustomAppBar({ handleDrawerOpen }) {
               style={{ marginRight: "10px" }}
             >
               <Badge>
-                {loadiang ? <RefreshOutlinedIcon style={{ fontSize: "25px", }} onClick={refrecePage} /> :<Spinner/>}
+                {loadiang ? <RefreshOutlinedIcon style={{ fontSize: "25px", }} onClick={refrecePage} /> : <Spinner />}
               </Badge>
             </IconButton>
 
@@ -274,7 +319,9 @@ export default function CustomAppBar({ handleDrawerOpen }) {
               onClick={handleProfileMenuOpen}
 
             >
-              <AccountCircle style={{ fontSize: "25px", }} />
+              <Avatar sizes='20px'  style={{ fontSize: "15px",  width:'25px', height:'25px'}} >
+                {firstLetter}
+              </Avatar>
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

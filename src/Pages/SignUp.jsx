@@ -158,7 +158,9 @@ export default function SignUp() {
             [e.target.name]: e.target.value
         }))
     }
-
+  const loginPage=()=>{
+    window.location.assign('/login')
+  }
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={1} className='gridContainer' height={'100vh'} >
@@ -181,7 +183,7 @@ export default function SignUp() {
                                     />
 
                                 </Grid>
-                                <Grid lg={5.5} sm={5.5} xs={12}>
+                                <Grid lg={5.5} sm={5.5} xs={12} className='confirmDivPass'>
                                     <TextField
                                         fullWidth
                                         size='small'
@@ -194,7 +196,7 @@ export default function SignUp() {
                                 </Grid>
                             </Grid>
 
-                            <Grid lg={12} sm={12} xs={12} >
+                            <Grid lg={12} sm={12} xs={12} className='confirmDivPass'>
                                 <TextField
                                     fullWidth
                                     size='small'
@@ -224,7 +226,7 @@ export default function SignUp() {
                                     />
 
                                 </Grid>
-                                <Grid lg={5.5}>
+                                <Grid lg={5.5} className='confirmDivPass ConfPass'>
                                     <TextField
                                         fullWidth
                                         type={showPassword ? "text" : "password"}
@@ -249,7 +251,7 @@ export default function SignUp() {
                                 />
                             </Grid>
                             <Grid className='butttonDiv'>
-                                <Grid ><Link className='linkText'>Sign instead</Link></Grid>
+                                <Grid ><Link className='linkText' onClick={loginPage}>Login</Link></Grid>
                                 <Grid><Button variant='contained' onClick={createAcc}>Create</Button></Grid>
                             </Grid>
 

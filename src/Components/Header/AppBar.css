@@ -1,0 +1,77 @@
+.userModal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    height: 300px;
+}
+
+
+.MuiMenu-paper {
+    background-color: rgb(216, 226, 232) !important;
+    border-radius: 20px !important;
+    width: 400px;
+
+
+
+}
+
+.modal_item {
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.modalClose {
+    position: relative;
+    top: 30px !important;
+    left: 90%;
+}
+
+.modal_btn {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.modal_btn_1 {
+    padding: 10px 30px 10px 10px;
+    background-color: white;
+    border-radius: 30px 0px 0px 30px;
+    margin-right: 5px;
+    width: 60%;
+}
+
+.modal_btn_2 {
+    padding: 10px 50px 10px 10px;
+    background-color: white;
+    border-radius: 0px 30px 30px 0px;
+    width: 60%;
+}
+
+.acc_manage {
+    padding: 5px;
+    background-color: aliceblue;
+    border: solid 1px rgb(205, 199, 199);
+    border-radius: 20px;
+}
+
+
+
+@media(max-width:970px){
+    .navSerach_bar{
+     width: 400px !important;
+    }
+}
+@media(max-width:768px){
+    .navSerach_bar{
+         width: 350px !important;
+         margin-left: 100px !important;
+       }
+}
+
+@media(max-width:552px){
+    .navSerach_bar{
+        width: 200px !important;
+        margin-left: 50px !important;
+    }
+}

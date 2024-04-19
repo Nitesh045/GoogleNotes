@@ -5,15 +5,12 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
- .inputField-one {
-    /* display: flex;
-    
-    justify-content: space-evenly;
-    flex-direction: column;
-    align-content: space-evenly;  */
+.inputField-one {
     width: 90%;
+    margin-left: 5%;
 
-} 
+
+}
 
 .text-login {
     text-align: center;
@@ -28,9 +25,7 @@ h3 {
 .paperDiv-one {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-content: space-evenly;
-
+    justify-content: space-around;
     
 }
 
@@ -39,4 +34,12 @@ h3 {
     font-weight: "bolder";
     font-size: "15px";
     margin-top: 10px;
+}
+
+.inputText {
+    display: flex !important;
+    justify-content: space-between;
+    flex-direction: row;
+    
+    margin: 5%;
 }

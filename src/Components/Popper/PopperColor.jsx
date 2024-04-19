@@ -41,7 +41,7 @@ Fade.propTypes = {
 };
 
 
-export const PopperColor = ({ setNotesData, setNotesColor, action, noteId }) => {
+export const PopperColor = ({ setNotesData, setNotesColor, action, noteId,setIsComponentRender }) => {
 
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -54,20 +54,20 @@ export const PopperColor = ({ setNotesData, setNotesColor, action, noteId }) => 
   const canBeOpen = open && Boolean(anchorEl);
   const id = canBeOpen ? 'spring-popper' : undefined;
 
-  const color = ['#cc9900', '#00ff00', '#0000ff', '#00ffff', '#99ff66', '#666633', '#ff0000']
+  const color = ['#edf2fa', '#0acc81', '#e1a2ee', '#c6d972', '#e1a2ee', '#59e4c5', '#7cdd43']
 
   const updateColor = (color1) => {
     if (action === 'create') {
       setNotesData(prev => ({
         ...prev, color: color1
       }))
-    } else {
+    } else if(action=='update') {
       let colorvalue = { noteIdList: [noteId], color: color1 }
       let updateColor = UpdateColor(colorvalue);
       console.log(updateColor)
-      window.location.reload();
+     setIsComponentRender(prev=>!prev)
     }
-
+    setOpen((previousOpen) => !previousOpen);
   }
 
 
@@ -81,10 +81,10 @@ export const PopperColor = ({ setNotesData, setNotesColor, action, noteId }) => 
       <Popper id={id} open={open} anchorEl={anchorEl} transition style={{ marginLeft: "20%" }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps}>
-            <Box sx={{ m: 1, p: 1, bgcolor: 'background.paper', display: "flex", boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px', justifyContent: 'center' }}>
+            <Box sx={{ m: 1, p: 1, bgcolor: 'background.paper', display: "flex", boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px', justifyContent: 'center',  margin:'0px'}} >
               {color.map((rang, index) => {
                 return (
-                  <div key={index} style={{ width: "40px", height: "40px", borderRadius: "50%", border: "solid 1px black", backgroundColor: rang, marginLeft: "20px" }}
+                  <div key={index} style={{ width: "35px", height: "35px", borderRadius: "50%", border: "solid 1px black", backgroundColor: rang, marginLeft: "20px" }}
                     onClick={() => updateColor(rang)}
                   ></div>
                 )

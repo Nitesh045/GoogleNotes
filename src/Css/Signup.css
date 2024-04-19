@@ -58,11 +58,23 @@ width: 100%;
 }
 @media (max-width:605px){
     .itemClass-content-1{
-        display: block;
+       display: block;
         
         
     } 
     .itemClass-lower{
         display: none;
+    }
+    .confirmDivPass{
+        margin-top: 20px;
+    }
+    .ConfPass{
+        margin-left: 0px !important;
+    }
+}
+
+@media (max-width:912px){
+    .ConfPass{
+        margin-left: 40px;
     }
 }

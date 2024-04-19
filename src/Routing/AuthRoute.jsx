@@ -2,8 +2,13 @@ import React from 'react'
 import { Navigate } from 'react-router-dom';
 
 export const AuthRoute = ({ children }) => {
-    const localdata = localStorage.getItem('token');
-    if (localdata === null || localdata === undefined) {
+    const storedJsonString = localStorage.getItem('userData');
+
+    // Parse the JSON string back into an object
+    const storedData = JSON.parse(storedJsonString);
+
+    
+    if (storedData === null || storedData === undefined) {
         return children
     }
     return <Navigate to="/" />

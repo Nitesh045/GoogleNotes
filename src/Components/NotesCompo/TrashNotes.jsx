@@ -22,9 +22,11 @@ import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOu
 
 
 import { useSpring, animated } from '@react-spring/web';
-import './GridNotes.css'
+import './GridNotes.css';
+import './ListView.css';
 
 import { forwardRef } from 'react';
+import { useSelector } from 'react-redux';
 
 
 
@@ -70,7 +72,7 @@ export const TrashNotes = () => {
 
 
   const [fetchData, setFetchData] = useState([])
-  
+  const [isComponentRender, setIsComponentRender] = useState(false);
   useEffect(() => {
     let res = getNotes()
       .then((data) => {
@@ -79,55 +81,57 @@ export const TrashNotes = () => {
 
         setFetchData(newNotes.reverse())
 
-         console.log(data)
+        console.log(data)
       }).catch((e) => {
         console.log(e)
       })
 
 
-  }, []);
+  }, [isComponentRender]);
 
-const deleteForever=(id)=>{
-  console.log(id)
-  let deleteItem = { noteIdList: [id] }
-  console.log(deleteItem)
-  let del= DeleteForever(deleteItem)
-  .then((d)=>{
-    console.log(d)
-    
-  }).catch((e)=>{
-    console.log(e)
-  })
+  const deleteForever = (id) => {
+    console.log(id)
+    let deleteItem = { noteIdList: [id] }
+    console.log(deleteItem)
+    let del = DeleteForever(deleteItem)
+      .then((d) => {
+        console.log(d)
 
+      }).catch((e) => {
+        console.log(e)
+      })
+
+
+
+  }
+  const restoreDelete = async (id) => {
+    console.log(id)
+    let restore = { noteIdList: [id], isDeleted: false }
+    let response = await Deleting(restore);
+    console.log(response)
+    setIsComponentRender(prev=>!prev)
+  }
+
+  const isTrue = useSelector(state => state.isTrue);
   
-    
-}
-const restoreDelete = async (id) => {
-  console.log(id)
-  let restore = { noteIdList: [id], isDeleted: false }
-  let response = await Deleting(restore);
-  console.log(response)
-  window.location.reload();
-}
-  console.log(fetchData);
   return (
-    <div className='mainSectionGrid'>
+    <div className={isTrue ? 'listViewCompo':'mainSectionGrid'}>
       {fetchData.map((res, i) => {
         return (
-          <div key={i} className='gridItemMain' style={{ backgroundColor: res.color }}>
-            <div className='gridItem'>
+          <div key={i}  style={{ backgroundColor: res.color }} className={isTrue ? 'showIconClass': 'trashWidth'}>
+            <div className={isTrue ?'IslistViewTrue':'gridItem'}>
               <div >
                 <h3>{res.title}</h3>
                 <p>{res.description}</p>
               </div>
-              
+
             </div>
             <div className='noteBoxIcon'>
               <div className="srarchInput-icon" >
-                <DeleteForeverOutlinedIcon onClick={()=>deleteForever(res.id)} />
+                <DeleteForeverOutlinedIcon onClick={() => deleteForever(res.id)} />
               </div>
               <div className="srarchInput-icon">
-                <RestoreFromTrashOutlinedIcon onClick={()=>restoreDelete(res.id)} />
+                <RestoreFromTrashOutlinedIcon onClick={() => restoreDelete(res.id)} />
               </div>
 
               {/* <div className="srarchInput-icon" onClick={handleClick}>

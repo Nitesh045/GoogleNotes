@@ -42,6 +42,9 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import './Drawer.css'
 import { useState } from 'react';
 const drawerWidth = 240;
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setArchiveTitle } from '../../Redux/Action';
 
 
 const openedMixin = (theme) => ({
@@ -110,6 +113,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function DrawerBar() {
+
+  
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [activeLinkArchive,setActiveLinkArchive]=useState('');
@@ -129,11 +134,16 @@ export default function DrawerBar() {
     setOpen(false)
   }
 
+
+  const dispatch= useDispatch();
   const archiveRoute = () => {
     navigate('/archive', { state: { widthValue: drawerWidth } })
     console.log(drawerWidth)
     setActiveLinkArchive('activeStyle')
     setActiveLinkHome('')
+    setActiveLinkTrash('')
+    dispatch(setArchiveTitle)
+    
   }
   const notesRoute = () => {
     navigate('/', { state: { widthValue: drawerWidth } })
@@ -156,21 +166,22 @@ export default function DrawerBar() {
 
         <List>
 
-          <ListItem disablePadding className={activeLinkHome} sx={{ display: 'block', borderRadius: '40px', width: '100%' }}>
+          <ListItem disablePadding className={activeLinkHome} sx={{ display: 'block', borderRadius: '20px', width: '100%' }}>
             <ListItemButton
               sx={{
-                minHeight: 48,
+                minHeight: 50,
                 justifyContent: open ? 'initial' : 'center',
                 px: 2.5,
 
-
+               
               }}
+              className='listItem-button-drawer'
               onClick={notesRoute}
             >
 
               <LightbulbOutlinedIcon
                 sx={{
-                  minWidth: 30,
+                  minWidth: 40,
                   mr: open ? 3 : 'auto',
                   justifyContent: 'center',
                 }}
@@ -184,7 +195,7 @@ export default function DrawerBar() {
               <ListItemText primary={'Notes'} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: 'block' }}>
+          <ListItem disablePadding sx={{ display: 'block', borderRadius: '20px' }}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -192,7 +203,7 @@ export default function DrawerBar() {
                 px: 2.5,
 
               }}
-
+              className='listItem-button-drawer'
             >
               <NotificationsNoneOutlinedIcon
                 sx={{
@@ -208,7 +219,7 @@ export default function DrawerBar() {
               <ListItemText primary={'Reminder'} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding className={activeLinkArchive} sx={{ display: 'block' }} >
+          <ListItem disablePadding className={activeLinkArchive} sx={{ display: 'block' , borderRadius: '20px'}} >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -217,6 +228,7 @@ export default function DrawerBar() {
 
               }}
               onClick={archiveRoute}
+              className='listItem-button-drawer'
             >
 
               <ArchiveOutlined
@@ -235,7 +247,7 @@ export default function DrawerBar() {
               <ListItemText primary={'Archive'} sx={{ opacity: open ? 1 : 0, }} />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: 'block' }} className={activeLinkTrash}>
+          <ListItem disablePadding sx={{ display: 'block' , borderRadius: '20px'}} className={activeLinkTrash}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -244,7 +256,8 @@ export default function DrawerBar() {
 
 
               }}
-
+              className='listItem-button-drawer'
+              onClick={trashRoute}
             >
               <DeleteOutlineOutlinedIcon
                 sx={{
@@ -252,7 +265,7 @@ export default function DrawerBar() {
                   mr: open ? 3 : 'auto',
                   justifyContent: 'center',
                 }}
-                onClick={trashRoute}
+               
               >
                 {/* {index  == 0 ? <LightbulbOutlinedIcon/>:null}
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}

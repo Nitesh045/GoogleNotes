@@ -23,13 +23,13 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Login() {
     const [errorV, setError] = useState({
-        errorEmail:false,
-        emailMessage:"",
-        errorPassword:false,
-        passwordMessage:""
+        errorEmail: false,
+        emailMessage: "",
+        errorPassword: false,
+        passwordMessage: ""
     });
-    
-  const navigate = useNavigate();
+
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({
 
         email: "",
@@ -39,36 +39,36 @@ export default function Login() {
     const rePass = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/
     const formHandler = (e) => {
         e.preventDefault();
-        if (reEmail.test(inputs.email)===false) {
-           setError((prev)=>({
-            ...prev,
-            emailMessage:"Enter Correct Email",
-            errorEmail:true,
-           }))
-            
+        if (reEmail.test(inputs.email) === false) {
+            setError((prev) => ({
+                ...prev,
+                emailMessage: "Enter Correct Email",
+                errorEmail: true,
+            }))
+
             return; // Stop further execution if email is invalid
-        }else{
-            setError((prev)=>({
-              ...prev ,
-              emailMessage:"",
-              errorEmail:false 
+        } else {
+            setError((prev) => ({
+                ...prev,
+                emailMessage: "",
+                errorEmail: false
             }))
         }
         if (!rePass.test(inputs.password)) {
-            setError((prev)=>({
-             ...prev,
-             passwordMessageMessage:"Enter password with capital ,small,number,Charecter",
-             errorPassword:true,
+            setError((prev) => ({
+                ...prev,
+                passwordMessage: "Enter password with capital ,small,number,Charecter",
+                errorPassword: true,
             }))
-             
-             return; // Stop further execution if email is invalid
-         }else{
-             setError((prev)=>({
-               ...prev ,
-               passwordMessage:"",
-               errorPassword:false 
-             }))
-         }
+
+            return; // Stop further execution if email is invalid
+        } else {
+            setError((prev) => ({
+                ...prev,
+                passwordMessage: "",
+                errorPassword: false
+            }))
+        }
 
         // If email is valid, proceed with form submission
         console.log(inputs);
@@ -77,15 +77,22 @@ export default function Login() {
     }
     const sendRequest = async () => {
         const res = await axios.post('https://fundoonotes.incubation.bridgelabz.com/api/user/login', {
-            
+
             email: inputs.email,
             password: inputs.password,
-            
+
         }).catch(e => console.log(e));
         const data = res.data;
         console.log(data);
-        
-        localStorage.setItem('token',data.id)
+        const userData = {
+            username: data.firstName,
+            email: data.email,
+            token: data.id
+        };
+        const userDataJSON = JSON.stringify(userData);
+         localStorage.setItem('key',data.id)
+        // Store the JSON string in local storage
+        localStorage.setItem('userData', userDataJSON);
         return data;
     }
 
@@ -96,11 +103,12 @@ export default function Login() {
         }))
     }
     return (
-        <Box sx={{width:'100%'}}>
-            <Grid xs={12} lg={12} sm={12} width={"100%"} height={'100vh'} display={'grid'} justifyContent={'space-evenly'} alignContent={'center'} >
-                <Paper sx={{ width: "100%",height:"500px" }} className='paperDiv-one'>
+        <Box sx={{ width: '100%' }}>
+            <Grid xs={12} lg={12} sm={12} width={"100%"} height={'100vh'} display={'grid'} justifyContent={'space-evenly'} alignContent={'space-evenly'} >
+                <Paper sx={{ width: "100%", height: "500px" }} className='paperDiv-one'>
                     <div className="text-login">
                         <h1><span style={{ color: "#4D6AFF" }}>G</span><span style={{ color: "red" }}>o</span><span style={{ color: "yellow" }}>o</span><span style={{ color: "#4D6AFF" }}>g</span><span style={{ color: "green" }}>l</span><span style={{ color: "red" }}>e</span></h1>
+                        <br/>
                         <h2>Sign In</h2>
                         <h3>with your google account</h3>
                     </div>
@@ -112,13 +120,14 @@ export default function Login() {
                             fullWidth
                             value={inputs.email}
                             onChange={handleChange}
-                            
+
                             name='email'
                             error={errorV.errorEmail}
                             helperText={errorV.emailMessage}
                         />
 
-                        <p className='inputP' >Forget Email ?</p>
+                       <br></br>
+                       <br/>
                     </div>
                     <div className="inputField-one">
                         <TextField
@@ -127,26 +136,26 @@ export default function Login() {
                             type='password'
                             fullWidth
 
-                            error={errorV.errorPassword }
-                            
-                            
+                            error={errorV.errorPassword}
+
+
                             value={inputs.password}
                             onChange={handleChange}
                             helperText={errorV.passwordMessage}
                             name='password'
                         />
 
-                        <p className='inputP'>Forget Passowrd ?</p>
-                        <br/>
-                        <p style={{opacity:'0.8'}}>Not your Computer? Use Guest mode to sign in privately</p>
+                        <p className='inputP'>Forgot Passowrd?</p>
+                        <br />
+                        <p style={{ opacity: '0.8' }}>Not your Computer? Use Guest mode to sign in privately</p>
                         <p className='inputP'> Learn more</p>
                     </div>
-                    <div className="inputText" style={{ display: "flex", justifyContent: "space-around", alignItems: "center", marginTop: "15px", marginBottom: "20px" }} >
+                    <div className="inputText" style={{  }} >
                         <div>
                             <Link to='/register'><Button  >Create Account</Button></Link>
                         </div>
                         <div>
-                            <Button variant='contained' onClick={formHandler}>Next</Button>
+                            <Button variant='contained' onClick={formHandler} >Next</Button>
                         </div>
                     </div>
 

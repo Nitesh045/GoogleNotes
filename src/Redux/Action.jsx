@@ -1,6 +1,9 @@
 // actions.js
 export const SET_TRUE = 'SET_TRUE';
 export const SET_FALSE = 'SET_FALSE';
+export const NOTES='NOTES';
+export const ARCHIVE='ARCHIVE';
+export const TRASH='TRASH';
 
 export const setTrue = () => ({
   type: SET_TRUE
@@ -21,4 +24,14 @@ export const setInputData = (data) => ({
 export const SPINNER_LOADING='SPINNER_LOADING';
 export const setIsLoaging=()=>{
     type: SPINNER_LOADING
+}
+
+export const setNotesTitle=()=>{
+  type:NOTES
+}
+export const setArchiveTitle=()=>{
+  type:ARCHIVE
+}
+export const setTrashTitle=()=>{
+  type:TRASH
 }

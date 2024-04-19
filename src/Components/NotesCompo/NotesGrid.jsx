@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
@@ -60,37 +60,43 @@ Fade.propTypes = {
 
 export const NotesGrid = () => {
   const [fetchData, setFetchData] = useState([])
-  const [resColor,setResColor]=useState()
-  
- const dispatch= useDispatch();  
+  const [resColor, setResColor] = useState()
+  const [isComponentRender, setIsComponentRender] = useState(false);
 
-  
-  
-  
-  useEffect(() => {
-    let res = getNotes()
+  const dispatch = useDispatch();
+
+
+const getAllNotes=()=>{
+  getNotes()
       .then((data) => {
         let result = data.data.data.data;
-        let newNotes = result.filter((notes) => notes.isArchived ===  notes.isDeleted )
-        setFetchData(newNotes)
+        let newNotes = result.filter((notes) => notes.isArchived === notes.isDeleted)
+        setFetchData(newNotes.reverse())
         dispatch(setIsLoaging(false))
-        
+
       }).catch((e) => {
         console.log(e)
       })
 
+}
 
-  }, []);
+  useEffect(() => {
+   getAllNotes()
 
-  
+
+  }, [isComponentRender]);
+
+
 
 
   console.log(fetchData);
 
-const [valueforSerach,setValueSearch]=useState('')
+  const [valueforSerach, setValueSearch] = useState('')
   const isTrue = useSelector(state => state.isTrue);
-  
-  const initialSearchValue= useSelector(state=>state.inputData)
+
+  const initialSearchValue = useSelector(state => state.inputData)
+
+
   useEffect(() => {
     setValueSearch(initialSearchValue);
   }, [initialSearchValue]);
@@ -98,17 +104,34 @@ const [valueforSerach,setValueSearch]=useState('')
   const filteredNotes = fetchData.filter(note => {
     // Perform case-insensitive search on note content
     return note.description.toLowerCase().includes(valueforSerach.toLowerCase());
-  });
+  },[]);
 
   return (
-    <div className={isTrue ? 'listViewCompo':'gridViewCompo'} >
-    {filteredNotes.map((d,i)=>{
-      return(
-        isTrue ?  <ListView key={i}  noteObj={d}/> : <NotesList key={i}  noteObj={d}/>
-       
-      )
-    })}
-    </div>
+    <>
+      {
+        isTrue ? <div className={isTrue ? 'listViewCompo' : 'gridViewCompo'} >
+          {filteredNotes.map((d, i) => {
+            return (
+              <ListView key={i} noteObj={d} setIsComponentRender={setIsComponentRender} />
 
+            )
+          })}
+
+        </div> :
+          <ResponsiveMasonry className='gridMasonry' columnsCountBreakPoints={{ 700: 1, 900: 2, 1000: 3, 1200:4}}  >
+            <Masonry columnsCount={4} gutter="0px">
+              {filteredNotes.map((d, i) => {
+                return (
+                  <NotesList key={i} noteObj={d} setIsComponentRender={setIsComponentRender} />
+
+                )
+              })}
+            </Masonry>
+          </ResponsiveMasonry>
+      }
+
+    </>
+
+    // className={isTrue ? 'listViewCompo' : 'gridViewCompo'}
   )
 }

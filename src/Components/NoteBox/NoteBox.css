@@ -77,4 +77,24 @@
     .css-96uuyl {
         width: 400px !important;
     }
+    .seracheInput_first{
+        width: 400px;
+    }
 }
+.serachInputOne_Parenet{
+    display: grid;
+    justify-content: center;
+    
+     height:100px;
+     width:100%
+}
+@media (max-width:892px) {
+    .seracheInput_first{
+        width: 400px !important;
+    }
+    .serachInputOne_Parenet{
+        justify-content: center;
+        align-content: center;
+
+    }
+  }

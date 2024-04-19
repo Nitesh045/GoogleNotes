@@ -11,3 +11,6 @@
 .activeStyle{
     background-color: lightyellow !important;
 }
+.listItem-button-drawer{
+    border-radius: 20px !important;
+}
