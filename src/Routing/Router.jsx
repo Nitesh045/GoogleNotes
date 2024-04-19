@@ -9,6 +9,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { AuthRoute } from './AuthRoute';
 import { NoteInput } from '../Components/Dashboard/DashBoard';
 import { TrashNotes } from '../Components/NotesCompo/TrashNotes';
+import { Reminder } from '../Components/NotesCompo/Reminder';
 
 
 export default function Router() {
@@ -23,6 +24,7 @@ export default function Router() {
                     <Route path='/' element={<NoteInput />} />
                     <Route path='/archive' element={<Archive />} />
                     <Route path='/trash' element={<TrashNotes />} />
+                    <Route path='/reminder' element={<Reminder />} />
                 </Route>
             </Routes>
         </BrowserRouter>

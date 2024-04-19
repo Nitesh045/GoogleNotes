@@ -114,12 +114,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function DrawerBar() {
 
-  
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [activeLinkArchive,setActiveLinkArchive]=useState('');
-  const [activeLinkTrash,setActiveLinkTrash]=useState('');
-  const [activeLinkHome,setActiveLinkHome]=useState('activeStyle');
+  const [activeLinkArchive, setActiveLinkArchive] = useState('');
+  const [activeLinkTrash, setActiveLinkTrash] = useState('');
+  const [activeLinkHome, setActiveLinkHome] = useState('activeStyle');
+  const [activeRemind, setActiveRemind] = useState('')
 
   const navigate = useNavigate();
   const handleDrawerOpen = () => {
@@ -135,7 +136,7 @@ export default function DrawerBar() {
   }
 
 
-  const dispatch= useDispatch();
+  const dispatch = useDispatch();
   const archiveRoute = () => {
     navigate('/archive', { state: { widthValue: drawerWidth } })
     console.log(drawerWidth)
@@ -143,7 +144,8 @@ export default function DrawerBar() {
     setActiveLinkHome('')
     setActiveLinkTrash('')
     dispatch(setArchiveTitle())
-    
+    setActiveRemind('')
+
   }
   const notesRoute = () => {
     navigate('/', { state: { widthValue: drawerWidth } })
@@ -151,14 +153,23 @@ export default function DrawerBar() {
     setActiveLinkHome('activeStyle')
     setActiveLinkTrash('')
     dispatch(setNotesTitle())
+    setActiveRemind('')
   }
 
-  const trashRoute=()=>{
+  const trashRoute = () => {
     navigate('/trash')
     setActiveLinkArchive('')
     setActiveLinkHome('')
     setActiveLinkTrash('activeStyle')
     dispatch(setTrashTitle())
+    setActiveRemind('')
+  }
+  const handleReminder = () => {
+    navigate('/reminder')
+    setActiveLinkArchive('')
+    setActiveLinkTrash('')
+    setActiveLinkHome('')
+    setActiveRemind('activeStyle')
   }
   return (
     <Box sx={{ display: 'flex' }}>
@@ -175,7 +186,7 @@ export default function DrawerBar() {
                 justifyContent: open ? 'initial' : 'center',
                 px: 2.5,
 
-               
+
               }}
               className='listItem-button-drawer'
               onClick={notesRoute}
@@ -190,14 +201,14 @@ export default function DrawerBar() {
 
               >
 
-                
+
               </LightbulbOutlinedIcon>
 
 
               <ListItemText primary={'Notes'} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: 'block', borderRadius: '20px' }}>
+          <ListItem disablePadding sx={{ display: 'block', borderRadius: '20px' }} className={activeRemind}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -205,6 +216,7 @@ export default function DrawerBar() {
                 px: 2.5,
 
               }}
+              onClick={handleReminder}
               className='listItem-button-drawer'
             >
               <NotificationsNoneOutlinedIcon
@@ -221,7 +233,7 @@ export default function DrawerBar() {
               <ListItemText primary={'Reminder'} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding className={activeLinkArchive} sx={{ display: 'block' , borderRadius: '20px'}} >
+          <ListItem disablePadding className={activeLinkArchive} sx={{ display: 'block', borderRadius: '20px' }} >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -249,7 +261,7 @@ export default function DrawerBar() {
               <ListItemText primary={'Archive'} sx={{ opacity: open ? 1 : 0, }} />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: 'block' , borderRadius: '20px'}} className={activeLinkTrash}>
+          <ListItem disablePadding sx={{ display: 'block', borderRadius: '20px' }} className={activeLinkTrash}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -267,7 +279,7 @@ export default function DrawerBar() {
                   mr: open ? 3 : 'auto',
                   justifyContent: 'center',
                 }}
-               
+
               >
                 {/* {index  == 0 ? <LightbulbOutlinedIcon/>:null}
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
@@ -283,7 +295,7 @@ export default function DrawerBar() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
 
-        <Outlet/>
+        <Outlet />
       </Box>
     </Box>
   );
