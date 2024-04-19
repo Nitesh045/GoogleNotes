@@ -60,18 +60,31 @@
 @media(max-width:970px){
     .navSerach_bar{
      width: 400px !important;
+     
+    }
+}
+@media(max-width:855px){
+    .navSerach_bar{
+        margin-left: 50px !important;
+        margin-top: 10px !important;
     }
 }
 @media(max-width:768px){
     .navSerach_bar{
          width: 350px !important;
-         margin-left: 100px !important;
+         margin-left: 150px !important;
        }
 }
 
 @media(max-width:552px){
     .navSerach_bar{
         width: 200px !important;
-        margin-left: 50px !important;
+        margin-left: 80px !important;
+    }
+}
+@media(max-width:521px){
+    .navSerach_bar{
+        width: 150px !important;
+        text-align: center;
     }
 }

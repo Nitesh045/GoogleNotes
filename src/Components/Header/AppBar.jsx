@@ -178,14 +178,14 @@ export default function CustomAppBar({ handleDrawerOpen }) {
       onClose={handleMobileMenuClose}
     >
 
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton>
 
           <AccountCircle />
 
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -196,7 +196,7 @@ export default function CustomAppBar({ handleDrawerOpen }) {
         >
 
         </IconButton>
-        <p>Logout</p>
+        <p>Profile</p>
       </MenuItem>
     </Menu>
   );
@@ -259,7 +259,7 @@ export default function CustomAppBar({ handleDrawerOpen }) {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' }, color: 'black', marginLeft: '20px' }}
+            sx={{ display: { xs: 'block', sm: 'block' }, color: 'black', marginLeft: '20px' }}
           >
             {titleNotes}
           </Typography>
