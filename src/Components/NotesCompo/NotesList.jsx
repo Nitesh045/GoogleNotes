@@ -25,6 +25,8 @@ import { forwardRef } from 'react';
 import { useState } from 'react';
 import { Deleting, updateArchive } from '../../AllNotesServices';
 import { EditModal } from '../../Modal/EditModal';
+import { useDispatch } from 'react-redux';
+import { setIsComponentRender } from '../../Redux/Action';
 
 
 const Fade = forwardRef(function Fade(props, ref) {
@@ -56,13 +58,13 @@ Fade.propTypes = {
   onEnter: PropTypes.func,
   onExited: PropTypes.func,
 };
-export const NotesList = ({ noteObj, key,setIsComponentRender }) => {
+export const NotesList = ({ noteObj, key }) => {
 
 
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [notesColor, setNotesColor] = useState(null);
-
+const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,7 +79,7 @@ export const NotesList = ({ noteObj, key,setIsComponentRender }) => {
     let dataId = await Deleting(deletenote)
       .then((d) => {
 
-        setIsComponentRender(prev=>!prev)
+        dispatch(setIsComponentRender())
       }).catch((e) => {
         console.log(e)
       })
@@ -89,8 +91,8 @@ export const NotesList = ({ noteObj, key,setIsComponentRender }) => {
     const updateArchive1 = async () => {
       let archive = { noteIdList: [noteObj.id], isArchived: true };
       let response = await updateArchive(archive);
-      console.log(response);
-      setIsComponentRender(prev=>!prev)
+      dispatch(setIsComponentRender())
+      
     };
 
     
@@ -106,7 +108,7 @@ const editModal=(data)=>{
   setEditData(data);
   setIsOpenModal(prev=>!prev)
 }
-console.log(editData)
+
   return (
     <>
       <div key={key} className='gridItemMain' style={{ backgroundColor: noteObj.color }} >
@@ -127,7 +129,7 @@ console.log(editData)
             <PersonAddOutlinedIcon />
           </div>
           <div className="srarchInput-icon">
-            <PopperColor action='update' setNotesColor={setNotesColor} noteId={noteObj.id} setIsComponentRender={setIsComponentRender} />
+            <PopperColor action='update' setNotesColor={setNotesColor} noteId={noteObj.id}  />
           </div>
           <div className="srarchInput-icon">
             <ImageOutlinedIcon />

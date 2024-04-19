@@ -61,10 +61,12 @@ Fade.propTypes = {
 export const NotesGrid = () => {
   const [fetchData, setFetchData] = useState([])
   const [resColor, setResColor] = useState()
-  const [isComponentRender, setIsComponentRender] = useState(false);
+  
 
   const dispatch = useDispatch();
-
+  const ComponentRender= useSelector(state=>state.ComponentRender)
+  const [isComponentRender, setIsComponentRender] = useState(ComponentRender);
+  
 
 const getAllNotes=()=>{
   getNotes()
@@ -84,15 +86,17 @@ const getAllNotes=()=>{
    getAllNotes()
 
 
-  }, [isComponentRender]);
+  }, [ComponentRender]);
 
 
 
 
-  console.log(fetchData);
+  
 
   const [valueforSerach, setValueSearch] = useState('')
   const isTrue = useSelector(state => state.isTrue);
+  
+  
 
   const initialSearchValue = useSelector(state => state.inputData)
 

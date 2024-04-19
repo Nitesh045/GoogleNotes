@@ -1,6 +1,6 @@
 // reducers.js
 
-import { ARCHIVE, NOTES, SET_FALSE, SET_TRUE, TRASH } from "./Action";
+import { ARCHIVE, ComponentRenderRe, NOTES, SET_FALSE, SET_TRUE, TRASH } from "./Action";
 import { SET_INPUT_DATA } from './Action';
 import { SPINNER_LOADING } from "./Action";
 
@@ -8,7 +8,8 @@ const initialState = {
     isTrue: false,
     inputData: '',
     isLoaging:true,
-    title:'NOTES'
+    title:'NOTES',
+    ComponentRender:false
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,6 +48,11 @@ const reducer = (state = initialState, action) => {
                     return{
                         ...state,
                         title:"TRASH"
+                    }
+                case ComponentRenderRe:
+                    return{
+                        ...state,
+                        ComponentRender: !state.ComponentRender
                     }
         default:
             return state;

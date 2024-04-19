@@ -21,6 +21,8 @@ import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
 import { EditeNotes } from '../AllNotesServices';
 import './EditModal.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsComponentRender } from '../Redux/Action';
 
 
 const customStyles = {
@@ -93,8 +95,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }));
-export const EditModal = ({ modalIsOpen, setIsOpenModal, notdataedit,setIsComponentRender }) => {
-console.log(notdataedit)
+export const EditModal = ({ modalIsOpen, setIsOpenModal, notdataedit }) => {
+
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -112,8 +114,8 @@ console.log(notdataedit)
         setIsOpenModal(false);
     }
 
-  
-
+    const dispatch = useDispatch();
+    const ComponentRender= useSelector(state=>state.ComponentRender)
     const [editNotes, seteditNotes] = useState({
         title: "",
         description: "",
@@ -122,7 +124,7 @@ console.log(notdataedit)
         isDeleted: false
     });
     useEffect(() => {
-        console.log(notdataedit)
+        
         seteditNotes({
             title: notdataedit?.title,
             description: notdataedit?.description,
@@ -140,16 +142,17 @@ console.log(notdataedit)
     };
     const handleInputClose = () => {
         let id = notdataedit.id
-        console.log(editNotes)
+        
          EditeNotes(id,editNotes)
         .then((d)=>{
-             console.log(d)
+             
              
         }).catch((err)=>{
             console.log(err)
         })
         setIsOpenModal(false);
-        setIsComponentRender(prev=>!prev)
+        dispatch(setIsComponentRender())
+       
     }
 
     return (

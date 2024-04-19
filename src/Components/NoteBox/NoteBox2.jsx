@@ -142,7 +142,7 @@ export const SearchInput2 = ({ handleInputClose }) => {
         }))
     }
 
- console.log(notesData.isArchived)
+
     return (
 
         <Grid

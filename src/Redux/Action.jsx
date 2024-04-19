@@ -4,6 +4,7 @@ export const SET_FALSE = 'SET_FALSE';
 export const NOTES='NOTES';
 export const ARCHIVE='ARCHIVE';
 export const TRASH='TRASH';
+export const ComponentRenderRe='ComponentRenderRe';
 
 export const setTrue = () => ({
   type: SET_TRUE
@@ -22,16 +23,19 @@ export const setInputData = (data) => ({
 });
 
 export const SPINNER_LOADING='SPINNER_LOADING';
-export const setIsLoaging=()=>{
-    type: SPINNER_LOADING
-}
+export const setIsLoaging=()=>({
+    type:SPINNER_LOADING
+})
 
-export const setNotesTitle=()=>{
+export const setNotesTitle=()=>({
   type:NOTES
-}
-export const setArchiveTitle=()=>{
+})
+export const setArchiveTitle=()=>({
   type:ARCHIVE
-}
-export const setTrashTitle=()=>{
+})
+export const setTrashTitle=()=>({
   type:TRASH
-}
+})
+export  const setIsComponentRender=()=>({
+  type:ComponentRenderRe
+})

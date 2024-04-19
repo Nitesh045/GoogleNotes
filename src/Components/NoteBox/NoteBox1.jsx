@@ -24,6 +24,8 @@ import './NoteBox.css'
 import { useState } from 'react';
 import { SearchInput2 } from './NoteBox2.jsx';
 import { postNotes } from '../../AllNotesServices.jsx';
+import { useDispatch } from 'react-redux';
+import { setIsComponentRender } from '../../Redux/Action.jsx';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -69,7 +71,7 @@ export const NoteBoxOne = () => {
     const [changeInput, setChangeInput] = useState(true)
    
     
-
+    const dispatch = useDispatch();
     const handleInput = () => {
         
         setChangeInput(false)
@@ -79,13 +81,14 @@ export const NoteBoxOne = () => {
         if(notesData.title !== '' || notesData.description !==''){
             console.log(notesData.title )
           let data= await  postNotes(notesData)
-          console.log(data)
+          
 
-
+         
           setChangeInput(true)
-          window.location.reload();
+          dispatch(setIsComponentRender(prev=>!prev))
+        //   window.location.reload();
         }else{
-            console.log('hello')
+           
             setChangeInput(true)
         }
         

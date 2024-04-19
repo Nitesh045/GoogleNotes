@@ -9,6 +9,8 @@ import { useSpring, animated } from '@react-spring/web';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import { useState } from 'react';
 import { UpdateColor } from '../../AllNotesServices';
+import { useDispatch } from 'react-redux';
+import { setIsComponentRender } from '../../Redux/Action';
 const Fade = React.forwardRef(function Fade(props, ref) {
   const { in: open, children, onEnter, onExited, ...other } = props;
   const style = useSpring({
@@ -41,11 +43,11 @@ Fade.propTypes = {
 };
 
 
-export const PopperColor = ({ setNotesData, setNotesColor, action, noteId,setIsComponentRender }) => {
+export const PopperColor = ({ setNotesData, setNotesColor, action, noteId }) => {
 
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+ const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     setOpen((previousOpen) => !previousOpen);
@@ -65,7 +67,7 @@ export const PopperColor = ({ setNotesData, setNotesColor, action, noteId,setIsC
       let colorvalue = { noteIdList: [noteId], color: color1 }
       let updateColor = UpdateColor(colorvalue);
       console.log(updateColor)
-     setIsComponentRender(prev=>!prev)
+     dispatch(setIsComponentRender())
     }
     setOpen((previousOpen) => !previousOpen);
   }

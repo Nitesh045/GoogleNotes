@@ -44,7 +44,7 @@ import { useState } from 'react';
 const drawerWidth = 240;
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setArchiveTitle } from '../../Redux/Action';
+import { setArchiveTitle, setNotesTitle, setTrashTitle } from '../../Redux/Action';
 
 
 const openedMixin = (theme) => ({
@@ -142,7 +142,7 @@ export default function DrawerBar() {
     setActiveLinkArchive('activeStyle')
     setActiveLinkHome('')
     setActiveLinkTrash('')
-    dispatch(setArchiveTitle)
+    dispatch(setArchiveTitle())
     
   }
   const notesRoute = () => {
@@ -150,6 +150,7 @@ export default function DrawerBar() {
     setActiveLinkArchive('')
     setActiveLinkHome('activeStyle')
     setActiveLinkTrash('')
+    dispatch(setNotesTitle())
   }
 
   const trashRoute=()=>{
@@ -157,6 +158,7 @@ export default function DrawerBar() {
     setActiveLinkArchive('')
     setActiveLinkHome('')
     setActiveLinkTrash('activeStyle')
+    dispatch(setTrashTitle())
   }
   return (
     <Box sx={{ display: 'flex' }}>
