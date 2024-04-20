@@ -136,11 +136,11 @@ export const Archive = () => {
                   {({ TransitionProps }) => (
                     <Fade {...TransitionProps}>
                       <Box sx={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px', p: 1, bgcolor: 'background.paper' }}>
-                        <p><Button  fullWidth>Delete</Button></p>
-                        <p><Button fullWidth>Add label</Button></p>
-                        <p><Button fullWidth>Add Drawing</Button></p>
-                        <p><Button fullWidth>Show tick boxes</Button></p>
-                        <p> <Button fullWidth>Version history</Button></p>
+                        <p><Button  fullWidth className='btn_p_Popper'>Delete</Button></p>
+                        <p><Button fullWidth className='btn_p_Popper'>Add label</Button></p>
+                        <p><Button fullWidth className='btn_p_Popper'>Add Drawing</Button></p>
+                        <p><Button fullWidth className='btn_p_Popper'>Show tick boxes</Button></p>
+                        <p> <Button fullWidth className='btn_p_Popper'>Version history</Button></p>
                       </Box>
                     </Fade>
                   )}
