@@ -11,6 +11,8 @@ import logoImage from '../assets/01-removebg-preview.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { RegisterPost } from '../Service/UserServices';
+import toast from 'react-hot-toast';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -134,24 +136,25 @@ export default function SignUp() {
             }
         }
         // console.log(formData)
-        sendRequest().then(() => navigate('/login'));
-
-    }
-
-
-    const sendRequest = async () => {
-        const res = await axios.post('https://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp', {
+        const data =  {
             firstName: formData.firstName,
             lastName: formData.lastName,
             email: formData.userName,
             password: formData.password,
             service: "advance"
-        }).catch(e => console.log(e));
-        const data = res.data;
-        console.log(data);
+        }
 
-        return data;
+        RegisterPost(data)
+        .then((d)=>{
+            console.log(d)
+             toast.success(d.data.data.message)
+             navigate('/login')
+        }).catch((err)=>{
+            console.log(err)
+        })
+
     }
+
     const handleChange = (e) => {
         setFormdata((prev) => ({
             ...prev,

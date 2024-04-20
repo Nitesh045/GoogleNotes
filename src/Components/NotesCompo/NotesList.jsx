@@ -23,7 +23,7 @@ import './GridNotes.css'
 import { forwardRef } from 'react';
 
 import { useState } from 'react';
-import { Deleting, updateArchive } from '../../AllNotesServices';
+import { Deleting, updateArchive } from '../../Service/AllNotesServices';
 import { EditModal } from '../../Modal/EditModal';
 import { useDispatch } from 'react-redux';
 import { setIsComponentRender } from '../../Redux/Action';

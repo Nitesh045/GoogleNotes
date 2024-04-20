@@ -5,7 +5,6 @@ const storedJsonString = localStorage.getItem('userData');
 // Parse the JSON string back into an object
 const storedData = JSON.parse(storedJsonString);
 const auth= localStorage.getItem('key')
-console.log(auth)
 
 const getHeaderConfig = () => {
     return {

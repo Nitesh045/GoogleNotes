@@ -1,5 +1,5 @@
 import React from 'react'
-import { getNotes, updateArchive } from '../../AllNotesServices';
+import { getNotes, updateArchive } from '../../Service/AllNotesServices';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { styled } from '@mui/material/styles';

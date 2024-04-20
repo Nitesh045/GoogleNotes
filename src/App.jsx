@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Router from './Routing/Router';
 import { Spinner } from './Components/NotesCompo/Spinner';
+import {Toaster} from  'react-hot-toast'
 
 
 
@@ -10,7 +11,10 @@ import { Spinner } from './Components/NotesCompo/Spinner';
 function App() {
 
   return (
+    <>
     <Router />
+    <Toaster/>
+    </>
   );
 }
 

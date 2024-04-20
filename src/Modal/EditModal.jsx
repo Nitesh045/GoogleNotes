@@ -19,7 +19,7 @@ import { Box, Button, Grid, TextField, TextareaAutosize } from '@mui/material';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
-import { EditeNotes } from '../AllNotesServices';
+import { EditeNotes } from '../Service/AllNotesServices';
 import './EditModal.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsComponentRender } from '../Redux/Action';

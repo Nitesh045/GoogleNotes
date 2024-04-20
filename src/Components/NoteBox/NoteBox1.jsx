@@ -23,7 +23,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import './NoteBox.css'
 import { useState } from 'react';
 import { SearchInput2 } from './NoteBox2.jsx';
-import { postNotes } from '../../AllNotesServices.jsx';
+import { postNotes } from '../../Service/AllNotesServices.jsx';
 import { useDispatch } from 'react-redux';
 import { setIsComponentRender } from '../../Redux/Action.jsx';
 

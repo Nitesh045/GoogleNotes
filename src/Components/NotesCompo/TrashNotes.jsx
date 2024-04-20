@@ -1,5 +1,5 @@
 import React from 'react'
-import { DeleteForever, Deleting, getNotes, updateArchive } from '../../AllNotesServices';
+import { DeleteForever, Deleting, getNotes, updateArchive } from '../../Service/AllNotesServices';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { styled } from '@mui/material/styles';

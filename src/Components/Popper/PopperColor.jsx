@@ -8,7 +8,7 @@ import '../NoteBox/NoteBox.css';
 import { useSpring, animated } from '@react-spring/web';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import { useState } from 'react';
-import { UpdateColor } from '../../AllNotesServices';
+import { UpdateColor } from '../../Service/AllNotesServices';
 import { useDispatch } from 'react-redux';
 import { setIsComponentRender } from '../../Redux/Action';
 const Fade = React.forwardRef(function Fade(props, ref) {

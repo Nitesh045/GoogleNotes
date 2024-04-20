@@ -7,6 +7,8 @@ import Grid from '@mui/material/Grid';
 import { Button, TextField, colors } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-hot-toast'
+import { LoginPost } from '../Service/UserServices';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -71,29 +73,42 @@ export default function Login() {
         }
 
         // If email is valid, proceed with form submission
-        console.log(inputs);
-        sendRequest().then(() => navigate('/'));
+        // console.log(inputs);
+        sendRequest();
 
     }
     const sendRequest = async () => {
-        const res = await axios.post('https://fundoonotes.incubation.bridgelabz.com/api/user/login', {
+
+
+        let logindada = {
 
             email: inputs.email,
             password: inputs.password,
 
-        }).catch(e => console.log(e));
-        const data = res.data;
-        console.log(data);
-        const userData = {
-            username: data.firstName,
-            email: data.email,
-            token: data.id
-        };
-        const userDataJSON = JSON.stringify(userData);
-         localStorage.setItem('key',data.id)
-        // Store the JSON string in local storage
-        localStorage.setItem('userData', userDataJSON);
-        return data;
+        }
+
+        await LoginPost(logindada).then((d) => {
+            console.log(d)
+            const userData = {
+                username: d.data.firstName,
+                email: d.data.email,
+                token: d.data.userId
+            };
+            const userDataJSON = JSON.stringify(userData);
+            localStorage.setItem('key', d.data.userId)
+             console.log(d.data.userId)
+            localStorage.setItem('userData', userDataJSON);
+            toast.success("Login")
+            navigate('/')
+            // return d
+        }).catch((err) => {
+            toast.error(err)
+            console.log(err)
+        })
+
+
+
+
     }
 
     const handleChange = (e) => {
@@ -108,7 +123,7 @@ export default function Login() {
                 <Paper sx={{ width: "100%", height: "500px" }} className='paperDiv-one'>
                     <div className="text-login">
                         <h1><span style={{ color: "#4D6AFF" }}>G</span><span style={{ color: "red" }}>o</span><span style={{ color: "yellow" }}>o</span><span style={{ color: "#4D6AFF" }}>g</span><span style={{ color: "green" }}>l</span><span style={{ color: "red" }}>e</span></h1>
-                        <br/>
+                        <br />
                         <h2>Sign In</h2>
                         <h3>with your google account</h3>
                     </div>
@@ -126,8 +141,8 @@ export default function Login() {
                             helperText={errorV.emailMessage}
                         />
 
-                       <br></br>
-                       <br/>
+                        <br></br>
+                        <br />
                     </div>
                     <div className="inputField-one">
                         <TextField
@@ -150,7 +165,7 @@ export default function Login() {
                         <p style={{ opacity: '0.8' }}>Not your Computer? Use Guest mode to sign in privately</p>
                         <p className='inputP'> Learn more</p>
                     </div>
-                    <div className="inputText" style={{  }} >
+                    <div className="inputText" style={{}} >
                         <div>
                             <Link to='/register'><Button  >Create Account</Button></Link>
                         </div>

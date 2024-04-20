@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 import { PopperColor } from '../Popper/PopperColor';
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
-import { Deleting, getNotes } from '../../AllNotesServices';
+import { Deleting, getNotes } from '../../Service/AllNotesServices';
 import { useSpring, animated } from '@react-spring/web';
 
 
@@ -72,6 +72,7 @@ const getAllNotes=()=>{
   getNotes()
       .then((data) => {
         let result = data.data.data.data;
+        console.log(result)
         let newNotes = result.filter((notes) => notes.isArchived === notes.isDeleted)
         setFetchData(newNotes.reverse())
         dispatch(setIsLoaging(false))
