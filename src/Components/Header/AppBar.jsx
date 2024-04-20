@@ -241,7 +241,7 @@ export default function CustomAppBar({ handleDrawerOpen }) {
 
   return (
     <Box sx={{ flexGrow: 1, width: "100%", position: "fixed" }} >
-      <AppBarMui position="static" sx={{ backgroundColor: 'white', border: '1px solid grey', boxShadow: "none", height: "70px" }}>
+      <AppBarMui position="static" sx={{ backgroundColor: 'white', borderBottom: '1px solid grey', boxShadow: "none", height: "70px" }}>
         <Toolbar>
           <IconButton
             size="large"
