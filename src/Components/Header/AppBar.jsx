@@ -213,9 +213,9 @@ export default function CustomAppBar({ handleDrawerOpen }) {
 
   const isTrue = useSelector(state => state.isTrue);
   const initialSearchValue = useSelector(state => state.inputData)
-  const loadiang = useSelector(state => state.isLoaging)
+  const loading = useSelector(state => state.isLoading)
   const titleNotes = useSelector(state => state.title)
-  // console.log(loadiang);
+   console.log(loading);
 
 
   const changeView = () => {
@@ -284,7 +284,7 @@ export default function CustomAppBar({ handleDrawerOpen }) {
               style={{ marginRight: "10px" }}
             >
               <Badge>
-                {loadiang ? <RefreshOutlinedIcon style={{ fontSize: "25px", }} onClick={refrecePage} /> : <Spinner />}
+                {loading ?   <Spinner />:<RefreshOutlinedIcon style={{ fontSize: "25px", }} onClick={refrecePage} />}
               </Badge>
             </IconButton>
 

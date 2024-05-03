@@ -250,7 +250,7 @@ export default function DrawerBar() {
                   minWidth: 30,
                   mr: open ? 3 : 'auto',
                   justifyContent: 'center',
-                  color: "grey"
+                  
                 }}
               >
                 {/* {index  == 0 ? <LightbulbOutlinedIcon/>:null}

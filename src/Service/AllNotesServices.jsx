@@ -13,7 +13,7 @@ const getHeaderConfig = () => {
         }
     };
 };
-
+console.log(getHeaderConfig());
 
 export const postNotes = async(data)=>{
     

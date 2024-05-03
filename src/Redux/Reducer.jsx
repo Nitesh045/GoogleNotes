@@ -7,7 +7,7 @@ import { SPINNER_LOADING } from "./Action";
 const initialState = {
     isTrue: false,
     inputData: '',
-    isLoaging:true,
+    isLoading:true,
     title:'NOTES',
     ComponentRender:false
 };
@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
             case SPINNER_LOADING:
                 return{
                     ...state,
-                    isLoaging:true
+                    isLoading:true
                 }
                 case NOTES:
                     return{
