@@ -23,6 +23,7 @@ export const setInputData = (data) => ({
 });
 
 export const SPINNER_LOADING='SPINNER_LOADING';
+
 export const setIsLoading=()=>({
     type:SPINNER_LOADING
 })

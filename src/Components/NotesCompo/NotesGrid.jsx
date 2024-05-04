@@ -4,13 +4,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
-import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
-import { Button, Card, Popper } from "@mui/material";
-import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
-import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
-import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
+
 import PropTypes from "prop-types";
 import { PopperColor } from "../Popper/PopperColor";
 import Typography from "@mui/material/Typography";
@@ -67,7 +61,7 @@ export const NotesGrid = () => {
   const [isComponentRender, setIsComponentRender] = useState(ComponentRender);
 
   const getAllNotes = async() => {
-    dispatch(setIsLoading(false));
+    
    await getNotes()
       .then((data) => {
         let result = data.data.data.data;
@@ -76,15 +70,17 @@ export const NotesGrid = () => {
           (notes) => notes.isArchived === notes.isDeleted
         );
         setFetchData(newNotes.reverse());
-       
+        dispatch(setIsLoading(false));
       })
       .catch((e) => {
       
         console.log(e);
       });
+
   };
 
   useEffect(() => {
+    
     getAllNotes();
   }, [ComponentRender]);
 

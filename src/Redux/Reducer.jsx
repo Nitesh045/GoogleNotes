@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
             case SPINNER_LOADING:
                 return{
                     ...state,
-                    isLoading:true
+                    isLoading:false
                 }
                 case NOTES:
                     return{

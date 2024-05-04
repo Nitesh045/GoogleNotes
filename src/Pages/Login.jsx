@@ -95,7 +95,7 @@ export default function Login() {
                 token: d.data.userId
             };
             const userDataJSON = JSON.stringify(userData);
-            localStorage.setItem('key', d.data.userId)
+            localStorage.setItem('key', d.data.id)
              console.log(d.data.userId)
             localStorage.setItem('userData', userDataJSON);
             toast.success("Login")
